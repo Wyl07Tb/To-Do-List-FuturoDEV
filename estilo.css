@@ -1,0 +1,22 @@
+body {
+    display: grid;
+    place-items: center;
+}
+
+#adicionar {
+    margin: 20px 0 0;
+    border-radius: 10px;
+}
+
+#remover:hover {
+    background-color: lightcoral;
+}
+
+li {
+    list-style: none;
+    padding: 3px 0;
+}
+
+ul {
+    padding: 0;
+}
