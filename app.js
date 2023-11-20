@@ -1,28 +1,71 @@
-const campoTarefa = document.getElementById("tarefa");
-const botaoAdiciona = document.getElementById("adicionar");
+// script da lista de tarefas
+
+const campoTarefa = document.getElementById("campo-tarefa");
+const botaoAdicionar = document.getElementById("botao-adicionar");
 const listaTarefas = document.getElementById("lista-tarefas");
-const tarefas = ["Estudar HTML e CSS", "Estudar JavaScript", "Fazer exrcícios"];
+
+let listaControle = [
+	{
+		nome: "Estudar HTML e CSS",
+		feito: true,
+	},
+	{
+		nome: "Estudar JavarScript",
+		feito: false,
+	},
+	{
+		nome: "Fazer os exercícios",
+		feito: false,
+	},
+];
+
+function removeItemDaLista(itemParaRemover) {
+	const novaListaControle = listaControle.filter((itemDaLista) => {
+		return itemDaLista !== itemParaRemover;
+	});
+	listaControle = novaListaControle;
+	atualizaTela();
+}
+
+function criaElementoDoItem(item) {
+	const novoElemento = document.createElement("li");
+	const checado = item.feito ? "checked" : "";
+
+	novoElemento.innerHTML = `
+		<input type="checkbox" ${checado} />
+		<span>${item.nome}</span>
+		<button>🗑️</button>
+	`;
+	novoElemento.className = "item";
+
+	const botaoRemover = novoElemento.querySelector("button");
+	botaoRemover.addEventListener("click", () => {
+		removeItemDaLista(item);
+	});
+	return novoElemento;
+}
 
 function atualizaTela() {
-    listaTarefas.innerHTML = "";
+	listaTarefas.innerHTML = "";
 
-	tarefas.forEach((tarefa) => {
-		const elementoLi = document.createElement("li");
-		elementoLi.innerHTML = `
-        <input type="checkbox">
-        <span>${tarefa}</span>
-        <button id="remover">🗑️</button>
-        `;
-		listaTarefas.appendChild(elementoLi);
-        
+	listaControle.forEach((item) => {
+		const novoItem = criaElementoDoItem(item);
+		listaTarefas.appendChild(novoItem);
 	});
 }
 
-botaoAdiciona.addEventListener("click", () => {
-	const novaTarefa = campoTarefa.value;
-	tarefas.push(novaTarefa);
-	atualizaTela();
-	campoTarefa.value = "";
-});
-
 atualizaTela();
+
+function adicionaItemNaLista() {
+	if (campoTarefa.value) {
+		const novaTarefa = {
+		nome: campoTarefa.value,
+		feito: false,
+		};
+		listaControle.push(novaTarefa);
+		campoTarefa.value = "";
+		atualizaTela();
+	}
+}
+
+botaoAdicionar.addEventListener("click", adicionaItemNaLista);
