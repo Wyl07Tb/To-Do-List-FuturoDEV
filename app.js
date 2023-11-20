@@ -10,7 +10,7 @@ let listaControle = [
 		feito: true,
 	},
 	{
-		nome: "Estudar JavarScript",
+		nome: "Estudar JavaScript",
 		feito: false,
 	},
 	{
@@ -43,7 +43,7 @@ function criaElementoDoItem(item) {
 		removeItemDaLista(item);
 	});
 	return novoElemento;
-}
+	}
 
 function atualizaTela() {
 	listaTarefas.innerHTML = "";
