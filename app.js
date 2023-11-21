@@ -1,5 +1,3 @@
-// script da lista de tarefas
-
 const campoTarefa = document.getElementById("campo-tarefa");
 const botaoAdicionar = document.getElementById("botao-adicionar");
 const listaTarefas = document.getElementById("lista-tarefas");
