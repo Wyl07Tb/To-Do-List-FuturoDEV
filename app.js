@@ -17,12 +17,18 @@ let listaControle = [
 	},
 ];
 
+function atualizarItemDaLista(itemParaAtualizar) {
+	itemParaAtualizar.feito = !itemParaAtualizar.feito;
+}
+
 function removeItemDaLista(itemParaRemover) {
-	const novaListaControle = listaControle.filter((itemDaLista) => {
-		return itemDaLista !== itemParaRemover;
-	});
-	listaControle = novaListaControle;
-	atualizaTela();
+	if (confirm("Você tem certeza que deseja remover o item: " + itemParaRemover.nome + "?")) {
+		const novaListaControle = listaControle.filter((itemDaLista) => {
+			return itemDaLista !== itemParaRemover;
+		});
+		listaControle = novaListaControle;
+		atualizaTela();
+	}
 }
 
 function criaElementoDoItem(item) {
@@ -40,6 +46,12 @@ function criaElementoDoItem(item) {
 	botaoRemover.addEventListener("click", () => {
 		removeItemDaLista(item);
 	});
+
+	const checkbox = novoElemento.querySelector("input");
+	checkbox.addEventListener("click", () => {
+		atualizarItemDaLista(item);
+	});
+
 	return novoElemento;
 	}
 
@@ -50,6 +62,8 @@ function atualizaTela() {
 		const novoItem = criaElementoDoItem(item);
 		listaTarefas.appendChild(novoItem);
 	});
+
+	document.querySelector("#qtdTotal").innerText = listaControle.length;
 }
 
 atualizaTela();
